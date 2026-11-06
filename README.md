@@ -1,5 +1,11 @@
 # dbscope
 
+[![CI](https://github.com/fcervan/dbscope/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/fcervan/dbscope/actions/workflows/ci.yml)
+[![Python](https://img.shields.io/badge/python-3.12-blue)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![MCP](https://img.shields.io/badge/MCP-stdio-blueviolet)](https://modelcontextprotocol.io/)
+[![MySQL/MariaDB](https://img.shields.io/badge/MySQL%2FMariaDB-read--only-orange)](https://www.mysql.com/)
+
 Servidor MCP local, somente leitura, para consultar MySQL/MariaDB nos ambientes
 `dev`, `qa` e `prod` sem entregar host, usuário, senha ou DSN ao modelo LLM.
 
@@ -28,7 +34,7 @@ apenas SQL, metadados, erros sanitizados e resultados limitados.
 | `list_schemas(environment?)` | Lista schemas acessíveis. Sem ambiente, usa o padrão (`dev` por default). |
 | `list_tables(environment?, schema)` | Lista tabelas e views do schema. |
 | `describe_table(environment?, schema, table)` | Colunas, tipos, defaults, chaves e índices. |
-| `query(environment?, sql, max_rows?)` | Executa **um** `SELECT`/CTE somente leitura. |
+| `query(environment?, sql, max_rows?)` | Executa **um** `SELECT` (incluindo `WITH ... SELECT`/CTE) somente leitura. |
 | `explain(environment?, sql)` | Executa `EXPLAIN` de um `SELECT` validado. |
 
 Regras:
