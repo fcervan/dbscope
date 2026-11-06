@@ -1,0 +1,60 @@
+# Copy this file to ~/.config/dbscope/config.toml, replace the placeholders,
+# remove the environments you do not use, and run:
+# chmod 600 ~/.config/dbscope/config.toml
+#
+# Relative paths are resolved against the directory that contains this file.
+# Keep that directory outside the repository and mount it read-only in Docker.
+#
+# Passwords: use password_file (recommended), password (inline in this 600
+# file), or use_keyring = true with the optional keyring dependency.
+# Never put real hosts, users, passwords or database names in the public repo.
+
+default_environment = "dev"
+
+[environments.dev]
+description = "Development"
+host = "dev-db.example.internal"
+port = 3306
+database = "app_dev"
+user = "dbscope_ro_dev"
+password_file = "secrets/dev.pass"
+# password = "change-me"
+sslmode = "require"                # disable | require | verify-ca | verify-identity
+# ssl_ca = "certs/dev-ca.pem"     # required for verify-identity
+# ssl_cert = "certs/dev-client.pem"
+# ssl_key = "certs/dev-client.key"
+connect_timeout_s = 5
+query_timeout_ms = 10000
+max_rows = 200
+max_bytes = 1048576
+# allowed_schemas = ["app_dev"]    # optional extra restriction; empty = rely on grants
+# mask_columns = ["cpf", "email"]  # optional; real protection belongs in DB views/ACLs
+
+[environments.qa]
+description = "Quality assurance"
+host = "qa-db.example.internal"
+port = 3306
+database = "app_qa"
+user = "dbscope_ro_qa"
+password_file = "secrets/qa.pass"
+sslmode = "require"
+connect_timeout_s = 5
+query_timeout_ms = 10000
+max_rows = 200
+max_bytes = 1048576
+
+[environments.prod]
+description = "Production replica (read-only)"
+host = "prod-replica.example.internal"
+port = 3306
+database = "app_prod"
+user = "dbscope_ro_prod"
+password_file = "secrets/prod.pass"
+sslmode = "verify-ca"
+ssl_ca = "certs/prod-ca.pem"
+connect_timeout_s = 5
+query_timeout_ms = 3000
+max_rows = 100
+max_bytes = 262144
+# allowed_schemas = ["app_prod"]
+# mask_columns = ["cpf", "email", "phone"]
