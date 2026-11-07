@@ -4,7 +4,7 @@
 #
 # The repository directory is never mounted. Only the directory that contains
 # config.toml (read-only) and the audit directory (writable) are mounted.
-# --network host lets the container inherit VPN routes available on the host.
+# --network host lets the container use the host network to reach the databases.
 #
 set -euo pipefail
 

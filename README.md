@@ -55,7 +55,7 @@ Regras:
 - Python 3.12 e [uv](https://docs.astral.sh/uv/) para desenvolvimento local.
 - Docker (recomendado para o modo container).
 - MySQL 5.7+/8.x ou MariaDB 10.x.
-- VPN/rota de rede até os bancos, quando aplicável.
+- Conectividade de rede até os bancos, quando aplicável.
 
 ## Instalação
 
@@ -156,10 +156,11 @@ O wrapper:
 - monta a pasta de auditoria em `/audit`;
 - não monta o workspace do projeto;
 - roda com o UID/GID do seu usuário para ler a config `600` e gravar a auditoria;
-- usa `--network host` por padrão para herdar as rotas da VPN.
+- usa `--network host` por padrão para o container compartilhar a rede do host
+  e alcançar os bancos conforme a infraestrutura.
 
-Se o seu Docker for rootless ou o `--network host` não enxergar a VPN, ajuste
-`DBSCOPE_NETWORK` ou rode o MCP nativamente sob um usuário de SO separado.
+Se o seu Docker for rootless ou o `--network host` não alcançar os bancos,
+ajuste `DBSCOPE_NETWORK` ou rode o MCP nativamente sob um usuário de SO separado.
 
 ## Configurar no OpenCode
 
